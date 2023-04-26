@@ -1,6 +1,7 @@
 package logic;
 
 import model.Task;
+import view.View;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,18 +17,24 @@ import static java.lang.Thread.sleep;
 public class SimulationManager implements Runnable{
     private final Scheduler scheduler;
     private final List<Task> tasks;
+    private final List<Task> computedTasks;
     private int numberOfClients;
     private int simulationInterval;
     private int minimumArrivalTime;
     private int maximumArrivalTime;
     private int minimumServiceTime;
     private int maximumServiceTIme;
+    private double serviceTime;
     private static int currentTime;
+    private View view;
 
 
-    public SimulationManager(){
+    public SimulationManager(View view){
         scheduler = new Scheduler();
         tasks = new ArrayList<>();
+        computedTasks = new ArrayList<>();
+        serviceTime = 0;
+        this.view = view;
     }
 
     @Override
@@ -37,7 +44,7 @@ public class SimulationManager implements Runnable{
 
         try{
             fh = new FileHandler("D:\\Darius\\Facultate\\Anul_II\\Semestrul_II\\" +
-                    "Tehnici_de_Programare_Fundamentale\\Laborator\\Assingment_02\\Logger");
+                    "Tehnici_de_Programare_Fundamentale\\Laborator\\Assingment_02\\Logger3");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
@@ -50,16 +57,27 @@ public class SimulationManager implements Runnable{
                     if(task.getArrivalTime() <= i){
                         scheduler.dispatchTask(task);
                         scheduler.computeWaitingPeriod();
+                        computedTasks.add(task);
                         iterator.remove();
                     }
                 }
-                logger.info("\nTime: " + i + "\n" + scheduler.generateLog());
+                logger.info("\nTime: " + i + "\nWaiting Clients: " + computeWaitingClients() +
+                        "\n" + scheduler.generateLog());
+                if(!scheduler.checkLoad() && tasks.isEmpty())
+                    break;
                 try{
                     sleep(1000);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }
             }
+            computeServiceTime();
+            serviceTime -= scheduler.getServiceTime();
+            double averageServiceTime = serviceTime / (computedTasks.size() - scheduler.getRemainingTasks());
+            double averageWaitingTime = computeAverageWaitingTime();
+            logger.info("\nRESULTS: " + "\nAverage Waiting Time: " + averageWaitingTime +
+                    "\nAverage Service Time: " + averageServiceTime +
+                    "\nPeek Hour: " + scheduler.getPeekHour());
         }catch (IOException e){
             e.printStackTrace();
         }finally {
@@ -74,18 +92,31 @@ public class SimulationManager implements Runnable{
             int serviceTime = random.nextInt((maximumServiceTIme + 1) - minimumServiceTime) + minimumServiceTime;
             tasks.add(new Task(i + 1, arrivalTime, serviceTime));
         }
-        for (Task task : tasks) {
-            System.out.println("Task: " + task.getID() + "; AT: " + task.getArrivalTime() + "; ST: " + task.getServiceTime());
-        }
     }
 
-    public double computeAverageWaitingTime(){
+    private double computeAverageWaitingTime(){
         double totalWaitingTime = 0;
-        for (Task task : tasks) {
+        for (Task task : computedTasks) {
             totalWaitingTime += (task.getServedTime() - task.getArrivalTime());
         }
 
-        return totalWaitingTime / tasks.size();
+        return totalWaitingTime / computedTasks.size();
+    }
+
+    private String computeWaitingClients(){
+        StringBuilder waitingClients = new StringBuilder();
+        for (Task task : tasks) {
+            waitingClients.append("(").append(task.getID()).append(", ").append(task.getArrivalTime())
+                    .append(", ").append(task.getServiceTime()).append("); ");
+        }
+
+        return waitingClients.toString();
+    }
+
+    private void computeServiceTime(){
+        for (Task tasks : computedTasks) {
+            serviceTime += tasks.getServiceTime();
+        }
     }
 
     public void setNumberOfClients(int numberOfClients) {
