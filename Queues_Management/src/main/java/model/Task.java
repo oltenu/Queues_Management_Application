@@ -43,8 +43,4 @@ public class Task {
     public void setServedTime(int servedTime) {
         this.servedTime = servedTime;
     }
-
-    public String toString(){
-        return "";
-    }
 }

@@ -16,8 +16,21 @@ public class Scheduler {
     }
 
     public void generateServers(int numberOfQueues){
-        for(int i = 0; i < numberOfQueues; i++)
-            servers.add(new Server());
+        for(int i = 0; i < numberOfQueues; i++) {
+            servers.add(new Server(i + 1));
+        }
+        for (Server server : servers) {
+            (new Thread(server)).start();
+        }
+    }
+
+    public String generateLog(){
+        StringBuilder logString = new StringBuilder();
+        for (Server server : servers) {
+            logString.append(server).append("\n");
+        }
+
+        return logString.toString();
     }
 
     public void computeWaitingPeriod(){

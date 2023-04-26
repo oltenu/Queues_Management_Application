@@ -1,9 +1,17 @@
 package logic;
 
 import model.Task;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+import static java.lang.Thread.sleep;
 
 public class SimulationManager implements Runnable{
     private final Scheduler scheduler;
@@ -24,19 +32,38 @@ public class SimulationManager implements Runnable{
 
     @Override
     public void run() {
-        for(int i = 0; i < simulationInterval; i++){
-            currentTime = i;
-            scheduler.computeWaitingPeriod();
-            for (Task task : tasks) {
-                if(task.getArrivalTime() >= i)
-                    scheduler.dispatchTask(task);
-            }
+        Logger logger = Logger.getLogger("Logger");
+        FileHandler fh;
 
-            try{
-                wait(1000);
-            }catch(InterruptedException e){
-                e.printStackTrace();
+        try{
+            fh = new FileHandler("D:\\Darius\\Facultate\\Anul_II\\Semestrul_II\\" +
+                    "Tehnici_de_Programare_Fundamentale\\Laborator\\Assingment_02\\Logger");
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+
+            for(int i = 0; i < simulationInterval; i++){
+                currentTime = i;
+                Iterator<Task> iterator = tasks.iterator();
+                while(iterator.hasNext()){
+                    Task task = iterator.next();
+                    if(task.getArrivalTime() <= i){
+                        scheduler.dispatchTask(task);
+                        scheduler.computeWaitingPeriod();
+                        iterator.remove();
+                    }
+                }
+                logger.info("\nTime: " + i + "\n" + scheduler.generateLog());
+                try{
+                    sleep(1000);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }
             }
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            System.exit(0);
         }
     }
 
@@ -46,6 +73,9 @@ public class SimulationManager implements Runnable{
             int arrivalTime = random.nextInt((maximumArrivalTime + 1) - minimumArrivalTime) + minimumArrivalTime;
             int serviceTime = random.nextInt((maximumServiceTIme + 1) - minimumServiceTime) + minimumServiceTime;
             tasks.add(new Task(i + 1, arrivalTime, serviceTime));
+        }
+        for (Task task : tasks) {
+            System.out.println("Task: " + task.getID() + "; AT: " + task.getArrivalTime() + "; ST: " + task.getServiceTime());
         }
     }
 
