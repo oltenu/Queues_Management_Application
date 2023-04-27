@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static java.lang.Thread.sleep;
 
 public class Server implements Runnable {
-    private int serverID;
+    private final int serverID;
     private final BlockingQueue<Task> tasks;
     private AtomicInteger waitingPeriod;
     private int finishTime;
@@ -25,16 +25,16 @@ public class Server implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (SimulationManager.getSimulationInterval() > SimulationManager.getCurrentTime()) {
             try {
-                if(!tasks.isEmpty()){
+                if (!tasks.isEmpty()) {
                     Task task = tasks.element();
                     task.setServedTime(SimulationManager.getCurrentTime());
                     finishTime = task.getServiceTime() + SimulationManager.getCurrentTime();
                     computeWaitingPeriod();
                     sleep(task.getServiceTime() * 1000L);
                     tasks.remove();
-                    if(tasks.isEmpty()){
+                    if (tasks.isEmpty()) {
                         status = false;
                     }
                     finishTime = 0;
@@ -45,7 +45,7 @@ public class Server implements Runnable {
         }
     }
 
-    public void computeWaitingPeriod(){
+    public void computeWaitingPeriod() {
         int tasksServicePeriod = 0;
         for (Task task : tasks) {
             tasksServicePeriod += task.getServiceTime();
@@ -64,31 +64,15 @@ public class Server implements Runnable {
         return waitingPeriod;
     }
 
-    public int getFinishTime() {
-        return finishTime;
-    }
-
-    public void setWaitingPeriod(AtomicInteger waitingPeriod) {
-        this.waitingPeriod = waitingPeriod;
-    }
-
     public boolean isStatus() {
         return status;
     }
 
-    public int getServerID() {
-        return serverID;
-    }
-
-    public void setServerID(int serverID) {
-        this.serverID = serverID;
-    }
-
-    public int getQueueSize(){
+    public int getQueueSize() {
         return tasks.size();
     }
 
-    public int getServiceTime(){
+    public int getServiceTime() {
         int serviceTime = 0;
         for (Task task : tasks) {
             serviceTime += task.getServiceTime();

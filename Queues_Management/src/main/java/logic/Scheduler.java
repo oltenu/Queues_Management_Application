@@ -2,8 +2,8 @@ package logic;
 
 import model.Server;
 import model.Task;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 public class Scheduler {
     private final List<Server> servers;
@@ -11,15 +11,15 @@ public class Scheduler {
     private int peekHour;
     private int maxLoad;
 
-    public Scheduler(){
+    public Scheduler() {
         servers = new ArrayList<>();
         strategy = new TimeStrategy();
         peekHour = 0;
         maxLoad = 0;
     }
 
-    public void generateServers(int numberOfQueues){
-        for(int i = 0; i < numberOfQueues; i++) {
+    public void generateServers(int numberOfQueues) {
+        for (int i = 0; i < numberOfQueues; i++) {
             servers.add(new Server(i + 1));
         }
         for (Server server : servers) {
@@ -27,7 +27,7 @@ public class Scheduler {
         }
     }
 
-    public String generateLog(){
+    public String generateLog() {
         StringBuilder logString = new StringBuilder();
         for (Server server : servers) {
             logString.append(server).append("\n");
@@ -36,19 +36,19 @@ public class Scheduler {
         return logString.toString();
     }
 
-    public void computeWaitingPeriod(){
+    public void computeWaitingPeriod() {
         for (Server server : servers) {
             server.computeWaitingPeriod();
         }
     }
 
-    public boolean checkLoad(){
+    public boolean checkLoad() {
         int currentLoad = 0;
         for (Server server : servers) {
             currentLoad += server.getQueueSize();
         }
 
-        if(currentLoad > maxLoad){
+        if (currentLoad > maxLoad) {
             maxLoad = currentLoad;
             peekHour = SimulationManager.getCurrentTime();
         }
@@ -56,7 +56,7 @@ public class Scheduler {
         return currentLoad != 0;
     }
 
-    public void dispatchTask(Task task){
+    public void dispatchTask(Task task) {
         strategy.addTask(servers, task);
     }
 
@@ -64,7 +64,7 @@ public class Scheduler {
         return peekHour;
     }
 
-    public int getServiceTime(){
+    public int getServiceTime() {
         int serviceTime = 0;
         for (Server server : servers) {
             serviceTime += server.getServiceTime();
@@ -72,8 +72,8 @@ public class Scheduler {
 
         return serviceTime;
     }
-    
-    public int getRemainingTasks(){
+
+    public int getRemainingTasks() {
         int remainingTasks = 0;
         for (Server server : servers) {
             remainingTasks += server.getQueueSize();
