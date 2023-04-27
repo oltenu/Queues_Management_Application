@@ -2,6 +2,7 @@ package model;
 
 import logic.SimulationManager;
 
+import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -25,7 +26,7 @@ public class Server implements Runnable {
 
     @Override
     public void run() {
-        while (SimulationManager.getSimulationInterval() > SimulationManager.getCurrentTime()) {
+        while (true) {
             try {
                 if (!tasks.isEmpty()) {
                     Task task = tasks.element();
@@ -85,7 +86,13 @@ public class Server implements Runnable {
         StringBuilder returnValue = new StringBuilder();
         returnValue.append("Queue ").append(serverID).append(": ");
         if (isStatus()) {
-            for (Task task : tasks) {
+            Iterator<Task> iterator = tasks.iterator();
+            Task t = iterator.next();
+            returnValue.append("(").append(t.getID()).append(", ").append(t.getArrivalTime())
+                    .append(", ").append(t.getServiceTime() - (SimulationManager.getCurrentTime() - t.getServedTime()) + 1).append("); ");
+
+            while(iterator.hasNext()) {
+                Task task = iterator.next();
                 returnValue.append("(").append(task.getID()).append(", ").append(task.getArrivalTime())
                         .append(", ").append(task.getServiceTime()).append("); ");
             }

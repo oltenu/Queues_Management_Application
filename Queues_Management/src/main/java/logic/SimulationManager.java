@@ -74,8 +74,7 @@ public class SimulationManager implements Runnable {
                 }
             }
             computeServiceTime();
-            serviceTime -= scheduler.getServiceTime();
-            double averageServiceTime = serviceTime / (computedTasks.size() - scheduler.getRemainingTasks());
+            double averageServiceTime = serviceTime / computedTasks.size();
             double averageWaitingTime = computeAverageWaitingTime();
             String log = "\nRESULTS: " + "\nAverage Waiting Time: " + averageWaitingTime +
                     "\nAverage Service Time: " + averageServiceTime +
@@ -151,9 +150,5 @@ public class SimulationManager implements Runnable {
 
     public static int getCurrentTime() {
         return currentTime;
-    }
-
-    public static int getSimulationInterval() {
-        return simulationInterval;
     }
 }
