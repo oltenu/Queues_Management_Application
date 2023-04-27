@@ -1,0 +1,174 @@
+Apr 26, 2023 11:39:05 PM logic.SimulationManager run
+INFO: 
+Time: 0
+Waiting Clients: (1, 13, 4); (2, 9, 3); (3, 20, 3); (4, 14, 4); 
+Queue 1: closed
+Queue 2: closed
+
+Apr 26, 2023 11:39:06 PM logic.SimulationManager run
+INFO: 
+Time: 1
+Waiting Clients: (1, 13, 4); (2, 9, 3); (3, 20, 3); (4, 14, 4); 
+Queue 1: closed
+Queue 2: closed
+
+Apr 26, 2023 11:39:07 PM logic.SimulationManager run
+INFO: 
+Time: 2
+Waiting Clients: (1, 13, 4); (2, 9, 3); (3, 20, 3); (4, 14, 4); 
+Queue 1: closed
+Queue 2: closed
+
+Apr 26, 2023 11:39:08 PM logic.SimulationManager run
+INFO: 
+Time: 3
+Waiting Clients: (1, 13, 4); (2, 9, 3); (3, 20, 3); (4, 14, 4); 
+Queue 1: closed
+Queue 2: closed
+
+Apr 26, 2023 11:39:09 PM logic.SimulationManager run
+INFO: 
+Time: 4
+Waiting Clients: (1, 13, 4); (2, 9, 3); (3, 20, 3); (4, 14, 4); 
+Queue 1: closed
+Queue 2: closed
+
+Apr 26, 2023 11:39:10 PM logic.SimulationManager run
+INFO: 
+Time: 5
+Waiting Clients: (1, 13, 4); (2, 9, 3); (3, 20, 3); (4, 14, 4); 
+Queue 1: closed
+Queue 2: closed
+
+Apr 26, 2023 11:39:11 PM logic.SimulationManager run
+INFO: 
+Time: 6
+Waiting Clients: (1, 13, 4); (2, 9, 3); (3, 20, 3); (4, 14, 4); 
+Queue 1: closed
+Queue 2: closed
+
+Apr 26, 2023 11:39:12 PM logic.SimulationManager run
+INFO: 
+Time: 7
+Waiting Clients: (1, 13, 4); (2, 9, 3); (3, 20, 3); (4, 14, 4); 
+Queue 1: closed
+Queue 2: closed
+
+Apr 26, 2023 11:39:13 PM logic.SimulationManager run
+INFO: 
+Time: 8
+Waiting Clients: (1, 13, 4); (2, 9, 3); (3, 20, 3); (4, 14, 4); 
+Queue 1: closed
+Queue 2: closed
+
+Apr 26, 2023 11:39:14 PM logic.SimulationManager run
+INFO: 
+Time: 9
+Waiting Clients: (1, 13, 4); (3, 20, 3); (4, 14, 4); 
+Queue 1: (2, 9, 3); 
+Queue 2: closed
+
+Apr 26, 2023 11:39:15 PM logic.SimulationManager run
+INFO: 
+Time: 10
+Waiting Clients: (1, 13, 4); (3, 20, 3); (4, 14, 4); 
+Queue 1: (2, 9, 3); 
+Queue 2: closed
+
+Apr 26, 2023 11:39:16 PM logic.SimulationManager run
+INFO: 
+Time: 11
+Waiting Clients: (1, 13, 4); (3, 20, 3); (4, 14, 4); 
+Queue 1: (2, 9, 3); 
+Queue 2: closed
+
+Apr 26, 2023 11:39:17 PM logic.SimulationManager run
+INFO: 
+Time: 12
+Waiting Clients: (1, 13, 4); (3, 20, 3); (4, 14, 4); 
+Queue 1: 
+Queue 2: closed
+
+Apr 26, 2023 11:39:18 PM logic.SimulationManager run
+INFO: 
+Time: 13
+Waiting Clients: (3, 20, 3); (4, 14, 4); 
+Queue 1: closed
+Queue 2: (1, 13, 4); 
+
+Apr 26, 2023 11:39:19 PM logic.SimulationManager run
+INFO: 
+Time: 14
+Waiting Clients: (3, 20, 3); 
+Queue 1: (4, 14, 4); 
+Queue 2: (1, 13, 4); 
+
+Apr 26, 2023 11:39:20 PM logic.SimulationManager run
+INFO: 
+Time: 15
+Waiting Clients: (3, 20, 3); 
+Queue 1: (4, 14, 4); 
+Queue 2: (1, 13, 4); 
+
+Apr 26, 2023 11:39:21 PM logic.SimulationManager run
+INFO: 
+Time: 16
+Waiting Clients: (3, 20, 3); 
+Queue 1: (4, 14, 4); 
+Queue 2: (1, 13, 4); 
+
+Apr 26, 2023 11:39:22 PM logic.SimulationManager run
+INFO: 
+Time: 17
+Waiting Clients: (3, 20, 3); 
+Queue 1: (4, 14, 4); 
+Queue 2: closed
+
+Apr 26, 2023 11:39:23 PM logic.SimulationManager run
+INFO: 
+Time: 18
+Waiting Clients: (3, 20, 3); 
+Queue 1: closed
+Queue 2: closed
+
+Apr 26, 2023 11:39:24 PM logic.SimulationManager run
+INFO: 
+Time: 19
+Waiting Clients: (3, 20, 3); 
+Queue 1: closed
+Queue 2: closed
+
+Apr 26, 2023 11:39:25 PM logic.SimulationManager run
+INFO: 
+Time: 20
+Waiting Clients: 
+Queue 1: closed
+Queue 2: (3, 20, 3); 
+
+Apr 26, 2023 11:39:26 PM logic.SimulationManager run
+INFO: 
+Time: 21
+Waiting Clients: 
+Queue 1: closed
+Queue 2: (3, 20, 3); 
+
+Apr 26, 2023 11:39:27 PM logic.SimulationManager run
+INFO: 
+Time: 22
+Waiting Clients: 
+Queue 1: closed
+Queue 2: (3, 20, 3); 
+
+Apr 26, 2023 11:39:28 PM logic.SimulationManager run
+INFO: 
+Time: 23
+Waiting Clients: 
+Queue 1: closed
+Queue 2: closed
+
+Apr 26, 2023 11:39:28 PM logic.SimulationManager run
+INFO: 
+RESULTS: 
+Average Waiting Time: 0.0
+Average Service Time: 3.5
+Peek Hour: 14
